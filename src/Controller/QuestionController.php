@@ -4,10 +4,11 @@
 namespace App\Controller;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class QuestionController
+class QuestionController extends AbstractController
 {
     /**
      *@Route("/")
@@ -22,6 +23,16 @@ class QuestionController
      */
     public function show($slug)
     {
-        return new Response(printf('Random word goes here: %s ', ucwords($slug)));
+        $answers = [
+            "This is an answer",
+            "Honey is sweet",
+            "The moon is grey ",
+            "I love icecream "
+        ];
+
+        return  $this->render('question/show.html.twig', [
+            'question' => ucwords(str_replace('-', ' ', $slug)),
+            'answers' => $answers
+        ]);
     }
 }
